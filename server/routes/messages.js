@@ -5,6 +5,22 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
+// Get unread message count
+router.get('/unread/count', auth, async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    const unreadCount = await Message.countDocuments({
+      recipient: userId,
+      isRead: false
+    });
+
+    res.json({ unreadCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Get all messages for current user
 router.get('/', auth, async (req, res) => {
   try {
@@ -118,22 +134,6 @@ router.put('/:messageId/read', auth, async (req, res) => {
     await message.save();
 
     res.json(message);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Get unread message count
-router.get('/unread/count', auth, async (req, res) => {
-  try {
-    const userId = req.userId;
-
-    const unreadCount = await Message.countDocuments({
-      recipient: userId,
-      isRead: false
-    });
-
-    res.json({ unreadCount });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
