@@ -56,4 +56,36 @@ export const usersAPI = {
     API.post(`/users/${userId}/unfollow`)
 };
 
+// Photos endpoints
+export const photosAPI = {
+  uploadPhoto: (formData) =>
+    API.post('/photos/upload', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }),
+  getPhotos: () =>
+    API.get('/photos'),
+  deletePhoto: (photoId) =>
+    API.delete(`/photos/${photoId}`),
+  likePhoto: (photoId) =>
+    API.post(`/photos/${photoId}/like`),
+  addComment: (photoId, text) =>
+    API.post(`/photos/${photoId}/comment`, { text })
+};
+
+// Convenience functions for easier use
+export const registerUser = (username, email, password) =>
+  authAPI.register(username, email, password).then(res => res.data);
+
+export const loginUser = (email, password) =>
+  authAPI.login(email, password).then(res => res.data);
+
+export const uploadPhoto = (formData) =>
+  photosAPI.uploadPhoto(formData).then(res => res.data);
+
+export const getPhotos = () =>
+  photosAPI.getPhotos().then(res => res.data);
+
+export const deletePhoto = (photoId) =>
+  photosAPI.deletePhoto(photoId).then(res => res.data);
+
 export default API;
