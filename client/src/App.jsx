@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
 import MessagesPage from './components/MessagesPage';
+import PhotoShare from './components/PhotoShare';
 import './App.css';
 
 function App() {
@@ -23,8 +26,20 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
+          path="/login"
+          element={!isAuthenticated ? <LoginPage /> : <Navigate to="/messages" />}
+        />
+        <Route
+          path="/register"
+          element={!isAuthenticated ? <RegisterPage /> : <Navigate to="/messages" />}
+        />
+        <Route
           path="/messages"
           element={isAuthenticated ? <MessagesPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/photos"
+          element={isAuthenticated ? <PhotoShare /> : <Navigate to="/login" />}
         />
         <Route
           path="/"
