@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const multer = require('multer');
 require('dotenv').config();
 
 const app = express();
@@ -9,8 +10,12 @@ const app = express();
 app.use(cors({
   origin: process.env.CORS_ORIGIN || 'http://localhost:3000'
 }));
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// Configure multer for file uploads
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/instagram-clone', {
@@ -27,6 +32,12 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/instagram
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/photos', require('./routes/photos'));
+
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'Server is running' });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
