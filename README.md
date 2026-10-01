@@ -121,7 +121,7 @@ The app will open on `http://localhost:3000`
 - `POST /api/messages/send` - Send a new message
 - `PUT /api/messages/:messageId/read` - Mark message as read
 - `GET /api/messages/unread/count` - Get unread message count
-- `DELETE /api/messages/:messageId` - Delete a message
+- ` show /api/messages/:messageId` - Delete a message
 
 ### Users
 - `GET /api/users/:username` - Get user by username
@@ -184,14 +184,14 @@ instagram-clone/
 
 ## Future Enhancements
 
-- [ ] Real-time messaging with Socket.io
-- [ ] Photo sharing and uploads
-- [ ] Stories functionality
-- [ ] Notifications system
-- [ ] Comments and likes on posts
-- [ ] Search functionality
-- [ ] Dark mode
-- [ ] Video calling
+- [ ]show Real-time messaging with Socket.io
+- [ ] show Photo sharing and uploads
+- [ ]show Stories functionality
+- [ ]show Notifications system
+- [ ] show Comments and likes on posts
+- [ ] show Search functionality
+- [ ] show Dark mode
+- [ ]show Video calling
 
 ## Contributing
 
